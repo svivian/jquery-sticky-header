@@ -1,25 +1,23 @@
 /* jQuery sticky table headers plugin */
 (function($){
-
 	$.fn.stickyheader = function() {
 		return this.each( function() {
 
 			var $table = $(this);
+			// apply to tables only
 			if ( $table.prop('tagName').toUpperCase() !== 'TABLE' )
 				return;
 
 			var tblPos = $table.offset();
 			var tblSize = { width: $table.width(), height: $table.height() };
-			var $thead = $table.find('> thead');
-
 			// set each TH to its own width
-			var thsizes = [];
-			$thead.find('> tr > th').each( function(i) {
-				thsizes[i] = $(this).width();
-				$(this).css( 'width', thsizes[i] );
+			$table.find('> thead > tr > th').each( function() {
+				$(this).css( 'width', $(this).width() );
 			} );
 
-			var $newThead = $thead.clone();
+			// clone entire table and remove tbody (performance seems fine)
+			$newTable = $table.clone().removeAttr('id');
+			$newTable.children('tbody').remove();
 
 			var tblCSS = {
 				position: 'fixed',
@@ -28,7 +26,7 @@
 				width: tblSize.width,
 				visibility: 'hidden'
 			};
-			var $newTable = $('<table class="stickify"></table>').css(tblCSS).append($newThead).appendTo('body');
+			$newTable.css(tblCSS).appendTo('body');
 
 			$(window).scroll( function() {
 				// while over the table, show sticky header
@@ -42,5 +40,4 @@
 
 		} );
 	};
-
 })(jQuery);
