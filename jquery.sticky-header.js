@@ -18,7 +18,7 @@
 			} );
 
 			// clone entire table and remove tbody (performance seems fine)
-			$newTable = $table.clone().removeAttr('id');
+			var $newTable = $table.clone().removeAttr('id');
 			$newTable.children('tbody').remove();
 
 			var tblCSS = {
