@@ -1,4 +1,6 @@
-/* jQuery sticky table headers plugin */
+/*! jQuery Sticky Table Headers 1.0 */
+/*  https://github.com/svivian/jquery-sticky-header */
+
 (function($){
 	$.fn.stickyheader = function() {
 		return this.each( function() {
@@ -12,7 +14,7 @@
 			var tblSize = { width: $table.width(), height: $table.height() };
 			// set each TH to its own width
 			$table.find('> thead > tr > th').each( function() {
-				$(this).css( 'width', $(this).width() );
+				$(this).css({width: $(this).width()});
 			} );
 
 			// clone entire table and remove tbody (performance seems fine)
@@ -33,9 +35,9 @@
 				var currTop = $(this).scrollTop();
 				var scrollLimit = tblPos.top + tblSize.height - $newTable.height();
 				if ( currTop > tblPos.top && currTop < scrollLimit )
-					$newTable.css('visibility', 'visible');
+					$newTable.css({visibility: 'visible'});
 				else
-					$newTable.css('visibility', 'hidden');
+					$newTable.css({visibility: 'hidden'});
 			} );
 
 		} );
